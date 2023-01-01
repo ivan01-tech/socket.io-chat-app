@@ -1,0 +1,276 @@
+ @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&family=Lato:ital,wght@0,400;1,900&display=swap');
+
+*,*::after,*::after{
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: "jetBrains Mono" , Arial, Helvetica, sans-serif
+
+}
+
+body{
+font-family: "jetBrains Mono";
+background-color: #e0e1e2;
+	
+}
+/* is typping */
+.user-list-typping{
+	font-size: .7rem;
+	flex: 1;
+}
+
+/* new user */
+.new-user{
+	width: 50%;
+	margin: auto;
+	text-align: center;
+	border-radius: 2rem;
+	color: gray;
+	font-weight: 900;
+	background-color: rgb(196, 193, 193);
+	padding: 5px 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: .7rem;
+}
+
+.chat-wrapper{
+	width: 40rem;
+	height: 35rem;
+	overflow: hidden;
+	background-color: #5977E4;
+	margin: auto;
+	margin-top: 1rem;
+	border-radius: 10px;
+	
+}
+
+.header{
+	display: flex;
+	padding: .5rem 1rem;
+	color: whitesmoke;
+	align-items: center;
+	height: 3.5rem;
+}
+
+.logo{
+	flex: 1;
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+.logo svg{
+	font-size: 3rem;
+}
+
+.nav-info{
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+}
+.toogle-bar{
+	font-size: 2rem;
+	display: none;
+}
+/* =============== */
+.mes-wrapper{
+	display: flex;
+	height: calc(100% - 3.5rem);
+}
+
+.mes-container{
+	flex: 1;
+	background-color: #EEF1F3;
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+}
+
+.contact{
+	width: 12rem;
+	color: whitesmoke;
+	background-color: #5977E4;
+}
+.contact .title{
+	background-color: whitesmoke;
+	color: #5977E4;
+	padding: .3rem;
+	margin: auto;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	width: 90%;
+	border-radius: .5rem;
+	display: flex;
+	font-size: 1rem;
+	align-items: center;
+	gap: .5rem;
+	height: auto;
+	
+}
+.contact .title h3{
+	flex: 1;
+}
+
+.users{
+	display: flex;
+	gap: .5rem;
+	flex-direction: column;
+}
+.users li{
+	padding:.3rem 1rem ;
+	font-weight: bold;
+	list-style-type: none;
+	border-bottom: 1px solid #07119c52;
+}
+
+.form-content{
+	display: flex;
+	height: 3rem;
+}
+.form-content input{
+flex: 1;
+padding:.3rem 1rem;
+border: none;
+outline: none;
+border: 2px solid #e0e1e2;
+}
+
+.form-content button{
+padding:.3rem 1rem;
+text-transform: capitalize;
+font-size: 1.3rem;
+display: flex;
+align-items: center;
+font-weight: bold;
+background-color: #5977E4;
+color: whitesmoke;
+outline: none;
+border: none;
+gap: .2rem;
+cursor: pointer;
+}
+
+button svg{
+	align-self: center;
+}
+.toogle-bar{
+	cursor: pointer;
+}
+
+/*  */
+.messages-wrap{
+flex: 1;
+overflow: auto;
+}
+
+.messages-wrap::-webkit-scrollbar {
+  visibility: hidden;
+  width: 7px; /* width of the entire scrollbar */
+}
+
+.messages-wrap::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1); /* color of the tracking area */
+}
+
+.messages-wrap::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.1); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  /* border: 3px solid rgba(0,0,0,0.1); creates padding around scroll thumb */
+}
+
+/* .messages-wrap::hover{ */
+
+.messages-wrap::-webkit-scrollbar {
+  visibility: visible;
+}
+
+
+.message{
+	margin: 1rem;
+	padding-right: 1rem;
+	
+}
+.msg-info{
+	color: gray;
+	font-size: small;
+	text-align: left;
+	font-family: "jetBrains Mono";
+}
+ .msg-info.send{
+	text-align: right;
+}
+.msg-info .owner{
+	font-weight: bold;
+	font-size: .8rem;
+}
+.msg-info .time{
+font-size: small;
+}
+.msg-content{
+	display: flex;
+	justify-content: flex-start;
+}
+.msg-content.send{
+	justify-content: flex-end;
+	
+}
+.msg-content p{
+	border-radius:.5rem ;
+	padding: .4rem;
+	max-width: 80%;
+	background-color: whitesmoke;
+	color: black;
+	border-bottom-left-radius: 0;
+}
+
+.msg-content.send p{
+	border-bottom-left-radius: .5rem;
+
+	border-bottom-right-radius: 0;
+	color: whitesmoke;
+	background-color: #5977E4;
+
+}
+
+
+
+/* ======================== responsive =================== */
+@media screen and (max-width:35.1rem) {
+	.toogle-bar{
+		display: block;
+	}
+.chat-wrapper{
+	border-radius: 0;
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+}
+.mes-wrapper{
+	position: relative;
+}
+.mes-container{
+	width: 100%;
+}
+.contact{
+	height: 100;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: -100%;
+	transition: left .3s ease;
+}
+.contact.toogle{
+	left: 0;
+}
+.logo-text{
+	display: none;
+}
+.send-btn span{
+	display: none;
+}
+.form-content{
+	margin-bottom: .2rem;
+}
+
+}
