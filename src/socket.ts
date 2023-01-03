@@ -1,12 +1,14 @@
 import { Server, Socket } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { SocketData } from "./socketConfig.js";
+
 import {
   getAlluserByRoom,
   getUserById,
   removeUser,
   saveUser,
 } from "./services/userRooms.js";
+
 import { formatMessage } from "./services/formatMessage.js";
 
 class SocketIO {
@@ -26,34 +28,69 @@ class SocketIO {
   ) => {
     console.log("new user ");
 
-    socket.on("sendInfo", ({ pseudo }: SocketData) => {
-      saveUser({ pseudo, id: socket.id });
-      // socket.broadcast.emit("newUser", { speudo });
-      this.io.emit("newUser", { pseudo }, getAlluserByRoom());
+    socket.on("sendInfo", ({ pseudo, room }: SocketData) => {
+      saveUser({ pseudo, id: socket.id, room });
+
+      // make the actual user join the room
+      socket.join(room);
+
+      // join a specifique room
+      this.io
+        .to(room)
+        .emit("newUser", { pseudo, room }, getAlluserByRoom(room));
     });
 
     socket.on("send-msg", (msg: string) => {
-      socket.broadcast.emit("receive-msg", formatMessage(msg, socket.id));
+      const user = getUserById(socket.id);
+
+      if (!user) {
+        console.log("user not found : ", socket.id);
+        return;
+      }
+      socket.broadcast
+        .to(user.room)
+        .emit("receive-msg", formatMessage(msg, socket.id));
     });
 
     socket.on("disconnect", function () {
-      socket.broadcast.emit(
-        "userDisconnect",
-        removeUser(socket.id)?.pseudo,
-        getAlluserByRoom()
-      );
+      const user = getUserById(socket.id);
+
+      if (!user) {
+        console.log("user not found : ", socket.id);
+        return;
+      }
+
+      removeUser(socket.id);
+
+      socket.broadcast
+        .to(user.room)
+        .emit("userDisconnect", user, getAlluserByRoom(user.room));
     });
 
     // is typping
     socket.on("is-typping", function () {
-      console.log(+" is typping...");
+      const user = getUserById(socket.id);
 
-      socket.broadcast.emit("user-typping", getUserById(socket.id)?.pseudo);
+      if (!user) {
+        console.log("user not found : ", socket.id);
+        return;
+      }
+
+      console.log(user.room + " is typping... ", user.pseudo);
+
+      socket.broadcast.to(user.room).emit("user-typping", user.pseudo);
     });
 
     socket.on("stop-typping", function () {
-      console.log(getUserById(socket.id)?.pseudo + " stop typping...");
-      socket.broadcast.emit("user-stop", getUserById(socket.id)?.pseudo);
+      const user = getUserById(socket.id);
+
+      if (!user) {
+        console.log("user not found : ", socket.id);
+        return;
+      }
+
+      console.log(user.pseudo + " stop typping...");
+      socket.broadcast.to(user.room).emit("user-stop", user.pseudo);
     });
   };
 }

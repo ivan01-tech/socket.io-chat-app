@@ -40,9 +40,19 @@ function addUser(pseudo: string, disconnect: boolean) {
   messageWrapper.appendChild(newUser);
 }
 
-function rendersAllusers(users: userType[]) {
+function rendersAllusers(users: userType[], room: string) {
   const usersDOM = document.querySelector(".users")!;
   const onlineuser = document.querySelector(".online-users")!;
+  const roomTitle = document.querySelector("#room-title")!;
+
+  console.log("==========================");
+  console.log(users);
+  console.log(room);
+  console.log("==========================");
+
+  // set the room's title
+  console.log(users[0].room, "   1:2     ", room);
+  roomTitle.textContent = room + "";
 
   let content = "";
   content = users.map((user) => `<li>${user.pseudo}</li>`).join("");

@@ -13,28 +13,32 @@ const room = url.searchParams.get("room");
 const formMsg = document.querySelector(".form") as HTMLFormElement;
 const inputMsg = document.querySelector<HTMLInputElement>("#input-msg")!;
 
+// went he log in a particular room
 function emitLogInfo() {
   socket.emit("sendInfo", { pseudo, room });
-  // send a feed back for the new connection
-  // utils.addUser("You ", false);
 }
 
 function initApp() {
   emitLogInfo();
 
-  socket.on("newUser", function ({ pseudo }: SocketData, users: userType[]) {
-    utils.addUser(pseudo, false);
-    utils.rendersAllusers(users);
-  });
+  socket.on(
+    "newUser",
+    function ({ pseudo, room }: SocketData, users: userType[]) {
+      utils.addUser(pseudo, false);
+      console.log(room, " apresC");
+      utils.rendersAllusers(users, room);
+    }
+  );
 
   // receive a new message and add it
   socket.on("receive-msg", function (msg: messageType) {
     utils.addMessage(msg, false);
   });
 
-  socket.on("userDisconnect", function (pseudo, users) {
-    utils.addUser(pseudo, true);
-    utils.rendersAllusers(users);
+  socket.on("userDisconnect", function (user: userType, users) {
+    utils.addUser(user.pseudo, true);
+    console.log(user.room, " apresD");
+    utils.rendersAllusers(users, user.room);
   });
 
   // send a message
