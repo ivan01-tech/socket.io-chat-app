@@ -1,4 +1,4 @@
-import { getUserById } from "./userRooms.js";
+import { getUserById } from "../users/userRooms.js";
 export function formatMessage(msg, id) {
     var _a;
     const date = new Date();

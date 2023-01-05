@@ -1,4 +1,4 @@
-import { getAlluserByRoom, getUserById, removeUser, saveUser, } from "./services/userRooms.js";
+import { getAlluserByRoom, getUserById, getUserByRoomAndName, removeUser, saveUser, } from "./users/userRooms.js";
 import { formatMessage } from "./services/formatMessage.js";
 class SocketIO {
     constructor(io) {
@@ -12,9 +12,16 @@ class SocketIO {
         this.connection = (socket) => {
             console.log("new user ");
             socket.on("sendInfo", ({ pseudo, room }) => {
+                const userPresent = getUserByRoomAndName({ pseudo, room });
+                if (userPresent) {
+                    socket
+                        .to(room)
+                        .emit("newUser", { pseudo, room }, getAlluserByRoom(room));
+                    return;
+                }
+                socket.join(room);
                 saveUser({ pseudo, id: socket.id, room });
                 // make the actual user join the room
-                socket.join(room);
                 // join a specifique room
                 this.io
                     .to(room)

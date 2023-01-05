@@ -4,7 +4,7 @@ import path from "path";
 import { Server } from "socket.io";
 import SocketIO from "./socket.js";
 
-const PORT = process.env.PORT || 3500;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
@@ -12,8 +12,8 @@ const io = new Server(server);
 const socketEvent = new SocketIO(io);
 
 app.use(express.static(path.join(process.cwd(), "build", "public")));
-
 app.use(express.static(path.join(process.cwd(), "build", "services")));
+app.use(express.static(path.join(process.cwd(), "build", "users")));
 
 app.get("/", function (req, res) {
   res.sendFile(

@@ -12,6 +12,9 @@ font-family: "jetBrains Mono";
 background-color: #e0e1e2;
 	
 }
+
+/* emoji button styles */
+
 /* is typping */
 .user-list-typping{
 	font-size: .7rem;
@@ -122,42 +125,52 @@ background-color: #e0e1e2;
 	list-style-type: none;
 	border-bottom: 1px solid #07119c52;
 }
-
+/* form  */
 .form-content{
 	display: flex;
 	height: 3rem;
+	padding: .2rem;
+
+	gap: .3rem;
 }
 .form-content input{
 flex: 1;
 padding:.3rem 1rem;
 border: none;
 outline: none;
-border: 2px solid #e0e1e2;
+border-radius: 1rem;
+border: 1px solid #e0e1e2;
 }
-
+.form-content label,
 .form-content button{
-padding:.3rem 1rem;
+padding:.5rem;
 text-transform: capitalize;
-font-size: 1.3rem;
 display: flex;
 align-items: center;
 font-weight: bold;
-background-color: #5977E4;
-color: whitesmoke;
+color: gray;
+background-color: white;
+
 outline: none;
 border: none;
 gap: .2rem;
 cursor: pointer;
+font-size: 1.3rem;
 }
 
-button svg{
-	align-self: center;
+#emoji-button svg{
+	display: inline-block;
+	background-color: transparent;
+	border-radius: 50%;
+}
+#send-btn{
+	color: #5977E4;
 }
 .toogle-bar{
 	cursor: pointer;
 }
 
-/*  */
+/* messages */
 .messages-wrap{
 flex: 1;
 overflow: auto;

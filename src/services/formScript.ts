@@ -2,7 +2,7 @@ import { Socket } from "socket.io";
 import { SocketData } from "../socketConfig.js";
 import { messageType } from "./formatMessage.js";
 import utils from "./utilMessage.js";
-import { userType } from "./userRooms.js";
+import { userType } from "../users/userRooms.js";
 
 const socket: Socket = io();
 let userWhoIsTypping: string[] = [];

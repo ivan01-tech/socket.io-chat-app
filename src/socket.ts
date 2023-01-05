@@ -5,9 +5,10 @@ import { SocketData } from "./socketConfig.js";
 import {
   getAlluserByRoom,
   getUserById,
+  getUserByRoomAndName,
   removeUser,
   saveUser,
-} from "./services/userRooms.js";
+} from "./users/userRooms.js";
 
 import { formatMessage } from "./services/formatMessage.js";
 
@@ -29,11 +30,18 @@ class SocketIO {
     console.log("new user ");
 
     socket.on("sendInfo", ({ pseudo, room }: SocketData) => {
-      saveUser({ pseudo, id: socket.id, room });
+      const userPresent = getUserByRoomAndName({ pseudo, room });
 
-      // make the actual user join the room
+      if (userPresent) {
+        socket
+          .to(room)
+          .emit("newUser", { pseudo, room }, getAlluserByRoom(room));
+        return;
+      }
+
       socket.join(room);
-
+      saveUser({ pseudo, id: socket.id, room });
+      // make the actual user join the room
       // join a specifique room
       this.io
         .to(room)

@@ -1,8 +1,10 @@
 function addMessage(message, send) {
+    let audio = new Audio("../media/message.mp3");
     const messageWrapper = document.querySelector(".messages-wrap");
     const className = send ? "send" : "";
     const newMsg = document.createElement("div");
     newMsg.classList.add("message");
+    audio.play();
     newMsg.innerHTML += `
 					<!-- a message ${send ? "send" : "receive"} -->
 						<div class="msg-info ${className}">

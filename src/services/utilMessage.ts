@@ -1,7 +1,9 @@
 import { messageType } from "./formatMessage.js";
-import { userType } from "./userRooms.js";
+import { userType } from "../users/userRooms.js";
 
 function addMessage(message: messageType, send: boolean) {
+  let audio = new Audio("../media/message.mp3");
+
   const messageWrapper = document.querySelector(
     ".messages-wrap"
   ) as HTMLDivElement;
@@ -9,6 +11,7 @@ function addMessage(message: messageType, send: boolean) {
   const className = send ? "send" : "";
   const newMsg = document.createElement("div");
   newMsg.classList.add("message");
+  audio.play();
 
   newMsg.innerHTML += `
 					<!-- a message ${send ? "send" : "receive"} -->
@@ -22,7 +25,6 @@ function addMessage(message: messageType, send: boolean) {
 							</p>
 						</div>
 					`;
-
   messageWrapper.appendChild(newMsg);
   newMsg.scrollIntoView();
 }
