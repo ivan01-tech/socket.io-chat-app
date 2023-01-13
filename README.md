@@ -1,3 +1,3 @@
 # Socket.io Chat App
 
-An chat application made by using Node and socket.io
+A chat application made by using Node and socket.io
