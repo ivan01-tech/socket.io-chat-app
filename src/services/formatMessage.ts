@@ -1,17 +1,23 @@
 import { getUserById } from "../users/userRooms.js";
 
 export type messageType = {
-  message: string;
+  message?: string;
   date: string;
   user: string | undefined;
+  pathImage?: string;
 };
 
-export function formatMessage(msg: string, id: string): messageType {
+export function formatMessage(
+  id: string,
+  msg?: string,
+  pathImage?: string
+): messageType {
   const date = new Date();
   console.log("id : ", id);
   return {
     message: msg,
     date: `${date.getHours()}:${date.getMinutes()}`,
-    user: getUserById(id)?.pseudo,
+    user: getUserById({ id })?.pseudo,
+    pathImage,
   };
 }

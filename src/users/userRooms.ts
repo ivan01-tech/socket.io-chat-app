@@ -6,11 +6,11 @@ export type userType = {
 
 export let Users: userType[] = [];
 
-export function saveUser(user: userType) {
+export function saveUser(user: userType): void {
   Users = [...Users, user];
 }
 
-export function getUserById(id: string) {
+export function getUserById({ id }: { id: string }) {
   return Users.find((user) => user.id == id);
 }
 

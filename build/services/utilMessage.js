@@ -5,6 +5,7 @@ function addMessage(message, send) {
     const newMsg = document.createElement("div");
     newMsg.classList.add("message");
     audio.play();
+    console.log("message.pathImage : ", message.pathImage);
     newMsg.innerHTML += `
 					<!-- a message ${send ? "send" : "receive"} -->
 						<div class="msg-info ${className}">
@@ -13,7 +14,10 @@ function addMessage(message, send) {
 						</div>
 						<div class="msg-content ${className}">
 							<p>
-								${message.message}
+								${message.message && `<span>${message.message}</span>`}
+								${message.message && message.pathImage && `<br />`}
+                ${(message === null || message === void 0 ? void 0 : message.pathImage) &&
+        `<img src=${"../" + message.pathImage} alt="photo">`}
 							</p>
 						</div>
 					`;

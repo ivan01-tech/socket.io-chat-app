@@ -1,6 +1,9 @@
 import { Server, Socket } from "socket.io";
-import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import { SocketData } from "./socketConfig.js";
+import {
+  ServerToClientEvents,
+  SocketData,
+  ClientToServerEvents,
+} from "./socketConfig";
 
 import {
   getAlluserByRoom,
@@ -14,7 +17,7 @@ import { formatMessage } from "./services/formatMessage.js";
 
 class SocketIO {
   constructor(
-    public io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>
+    public io: Server<ClientToServerEvents, ServerToClientEvents, SocketData>
   ) {}
 
   /**
@@ -24,9 +27,7 @@ class SocketIO {
     this.io.on("connection", this.connection);
   };
 
-  connection = (
-    socket: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>
-  ) => {
+  connection = (socket: Socket) => {
     console.log("new user ");
 
     socket.on("sendInfo", ({ pseudo, room }: SocketData) => {
@@ -48,20 +49,23 @@ class SocketIO {
         .emit("newUser", { pseudo, room }, getAlluserByRoom(room));
     });
 
-    socket.on("send-msg", (msg: string) => {
-      const user = getUserById(socket.id);
+    socket.on(
+      "sendMsg",
+      (msg: string | undefined, pathImage: string | undefined) => {
+        const user = getUserById({ id: socket.id });
 
-      if (!user) {
-        console.log("user not found : ", socket.id);
-        return;
+        if (!user) {
+          console.log("user not found : ", socket.id);
+          return;
+        }
+        socket.broadcast
+          .to(user.room)
+          .emit("receiveMsg", formatMessage(socket.id, msg, pathImage));
       }
-      socket.broadcast
-        .to(user.room)
-        .emit("receive-msg", formatMessage(msg, socket.id));
-    });
+    );
 
     socket.on("disconnect", function () {
-      const user = getUserById(socket.id);
+      const user = getUserById({ id: socket.id });
 
       if (!user) {
         console.log("user not found : ", socket.id);
@@ -76,8 +80,8 @@ class SocketIO {
     });
 
     // is typping
-    socket.on("is-typping", function () {
-      const user = getUserById(socket.id);
+    socket.on("isTypping", function () {
+      const user = getUserById({ id: socket.id });
 
       if (!user) {
         console.log("user not found : ", socket.id);
@@ -86,11 +90,11 @@ class SocketIO {
 
       console.log(user.room + " is typping... ", user.pseudo);
 
-      socket.broadcast.to(user.room).emit("user-typping", user.pseudo);
+      socket.broadcast.to(user.room).emit("userTypping", user.pseudo);
     });
 
-    socket.on("stop-typping", function () {
-      const user = getUserById(socket.id);
+    socket.on("stopTypping", function () {
+      const user = getUserById({ id: socket.id });
 
       if (!user) {
         console.log("user not found : ", socket.id);
@@ -98,7 +102,7 @@ class SocketIO {
       }
 
       console.log(user.pseudo + " stop typping...");
-      socket.broadcast.to(user.room).emit("user-stop", user.pseudo);
+      socket.broadcast.to(user.room).emit("userStop", user.pseudo);
     });
   };
 }

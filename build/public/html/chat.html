@@ -6,10 +6,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<title>Chat App - Socket.io</title>
+
 	<link rel="stylesheet" href="../css/styles.css">
-
-
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link
@@ -22,6 +22,7 @@
 
 <body>
 	<main class="chat-wrapper">
+
 		<header class="header">
 			<div class="logo">
 				<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet"
@@ -64,11 +65,33 @@
 				</section>
 			</aside>
 			<div class="mes-container">
+				<div class="loading">
+
+					<div>
+						uploading image...
+					</div>
+				</div>
 
 				<div class="messages-wrap">
 
 					<!-- a message send -->
 					<!-- a message receive -->
+
+
+					<!-- <div class="msg-info ${className}">
+						<span class="owner">${message.user}</span>
+						<span class="time">${message.date}</span>
+					</div>
+			 		<div class="msg-content ${className}">
+						<p>
+							<span>
+
+								${message.message}
+							</span> <br>
+							<img src="public/media/Screenshot from 2023-01-09 04-44-23.png" alt="dfvf">
+						</p>
+
+					</div> -->
 
 				</div>
 				<!-- </div> -->
@@ -81,9 +104,11 @@
 						<input type="text" name="message" id="input-msg" placeholder="Write a message...">
 						<input type="file" name="files" style="display: none;" id="files" accept="image/*" id="input-file">
 
-						<button id="emoji-button"><i class="fa-regular fa-face-smile"></i></button>
+						<!-- <button id="emoji-button"><i class=" fa-regular
+							fa-face-smile"></i>
+						</button> -->
 
-						<button class="send-btn">
+						<button class="send-btn" type="submit">
 							<iconify-icon icon="bi:telegram"></iconify-icon>
 						</button>
 					</div>
@@ -102,17 +127,18 @@
 	<script src="/socket.io/socket.io.js" defer></script>
 	<script type="module" src="/formScript.js" defer></script>
 	<script>
-		const button = document.querySelector('#emoji-button');
+		/* const button = document.querySelector('#emoji-button');
 		const picker = new EmojiButton();
 
-		button.addEventListener('click', () => {
+		button.addEventListener('click', (e) => {
+			e.preventDefault()
+			e.stopPropagation()
 			picker.togglePicker(button);
 
-		});
-
-		picker.on('emoji', emoji => {
-			document.querySelector('input').value += emoji;
-		});
+			picker.on('emoji', emoji => {
+				document.querySelector('input').value += emoji;
+			});
+		}); */
 
 		document.querySelector(".toogle-bar").addEventListener("click", function (e) {
 			document.querySelector('.contact').classList.toggle("toogle")
