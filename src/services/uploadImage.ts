@@ -1,18 +1,30 @@
-// manage image data here
+// var server_urls = {
+//   development: "localhost:3500",
+//   production: "https://chat-app-cucz.onrender.com",
+// };
+
+// var server_url = "production";
+
+// window.ENV = { app_env: "production" };
+// const url = window.ENV.app_env;
+
+// if (url == "development" || url == "production") server_url = server_urls[url];
+// else server_url = server_urls["development"];
 
 async function uploadImageClient(files: File) {
   const formData = new FormData();
   formData.append(files.name, files);
   try {
-    const response = await fetch(`http://localhost:${3500}/upload`, {
+    // //("server_url : ", server_url);
+    const response = await fetch(`https://chat-app-cucz.onrender.com/upload`, {
       method: "post",
       body: formData,
     });
     const json = await response.json();
-    console.log("json : ", json);
+    //("json : ", json);
     return json;
   } catch (err) {
-    console.log("err : ", err);
+    //("err : ", err);
   }
 }
 

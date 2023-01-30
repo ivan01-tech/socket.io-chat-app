@@ -28,7 +28,7 @@ class SocketIO {
   };
 
   connection = (socket: Socket) => {
-    console.log("new user ");
+    //("new user ");
 
     socket.on("sendInfo", ({ pseudo, room }: SocketData) => {
       const userPresent = getUserByRoomAndName({ pseudo, room });
@@ -52,10 +52,10 @@ class SocketIO {
     socket.on(
       "sendMsg",
       (msg: string | undefined, pathImage: string | undefined) => {
-        const user = getUserById({ id: socket.id });
+        const user = getUserById(socket.id);
 
         if (!user) {
-          console.log("user not found : ", socket.id);
+          //("user not found : ", socket.id);
           return;
         }
         socket.broadcast
@@ -65,10 +65,10 @@ class SocketIO {
     );
 
     socket.on("disconnect", function () {
-      const user = getUserById({ id: socket.id });
+      const user = getUserById(socket.id);
 
       if (!user) {
-        console.log("user not found : ", socket.id);
+        //("user not found : ", socket.id);
         return;
       }
 
@@ -81,27 +81,27 @@ class SocketIO {
 
     // is typping
     socket.on("isTypping", function () {
-      const user = getUserById({ id: socket.id });
+      const user = getUserById(socket.id);
 
       if (!user) {
-        console.log("user not found : ", socket.id);
+        //("user not found : ", socket.id);
         return;
       }
 
-      console.log(user.room + " is typping... ", user.pseudo);
+      //(user.room + " is typping... ", user.pseudo);
 
       socket.broadcast.to(user.room).emit("userTypping", user.pseudo);
     });
 
     socket.on("stopTypping", function () {
-      const user = getUserById({ id: socket.id });
+      const user = getUserById(socket.id);
 
       if (!user) {
-        console.log("user not found : ", socket.id);
+        //("user not found : ", socket.id);
         return;
       }
 
-      console.log(user.pseudo + " stop typping...");
+      //(user.pseudo + " stop typping...");
       socket.broadcast.to(user.room).emit("userStop", user.pseudo);
     });
   };

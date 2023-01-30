@@ -2,7 +2,7 @@ import { getUserById } from "../users/userRooms.js";
 export function formatMessage(id, msg, pathImage) {
     var _a;
     const date = new Date();
-    console.log("id : ", id);
+    //("id : ", id);
     return {
         message: msg,
         date: `${date.getHours()}:${date.getMinutes()}`,

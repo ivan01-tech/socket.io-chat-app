@@ -1,3 +1,6 @@
+// import "./types/globals";
+// import "./types/index";
+
 import express, { Request, Response } from "express";
 import { UploadedFile } from "express-fileupload";
 import { createServer } from "http";
@@ -11,8 +14,14 @@ import {
   ServerToClientEvents,
   SocketData,
 } from "./socketConfig.js";
+if (typeof window !== "undefined")
+  if (typeof process !== "undefined")
+    window.ENV.app_env = process.env.NODE_ENV || "development";
+  else window.ENV.app_env = "development";
 
+// window.ENV.app_env = process.env.NODE_ENV || "development";
 export const PORT = process.env.PORT || 3500;
+
 const app = express();
 const server = createServer(app);
 const io = new Server<ClientToServerEvents, ServerToClientEvents, SocketData>(
@@ -35,18 +44,18 @@ app.post(
   "/upload",
   fileupload({ createParentPath: true }),
   function (req: Request, res: Response) {
-    console.log("===================");
-    console.log(res, req);
-    console.log("===================");
+    //("===================");
+    //(res, req);
+    //("===================");
 
     let pathImage;
     let pathImageFormSite;
     req.files &&
       Object.keys(req.files).forEach(function (name) {
         if (req.files) {
-          console.log("===================");
-          console.log(req?.files[name]);
-          console.log("===================");
+          //("===================");
+          //(req?.files[name]);
+          //("===================");
 
           const objFile = req.files[name] as UploadedFile;
           const formatName = objFile.name.split(" ").join("");
@@ -61,7 +70,7 @@ app.post(
 
           pathImageFormSite = join("image", formatName);
 
-          console.log("pathImage : ", pathImage);
+          //("pathImage : ", pathImage);
 
           objFile.mv(pathImage, function (err: Error) {
             if (err)
@@ -89,5 +98,5 @@ app.post(
 socketEvent.startSocket();
 
 server.listen(PORT, function () {
-  console.log("Server running on port  : ", PORT);
+  //("Server running on port  : ", PORT);
 });

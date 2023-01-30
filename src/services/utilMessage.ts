@@ -14,7 +14,7 @@ function addMessage(message: messageType, send: boolean) {
   newMsg.classList.add("message");
 
   audio.play();
-  console.log("message.pathImage : ", message.pathImage);
+  //("message.pathImage : ", message.pathImage);
 
   newMsg.innerHTML += `
 					<!-- a message ${send ? "send" : "receive"} -->
@@ -55,13 +55,13 @@ function rendersAllusers(users: userType[], room: string) {
   const onlineuser = document.querySelector(".online-users")!;
   const roomTitle = document.querySelector("#room-title")!;
 
-  console.log("==========================");
-  console.log(users);
-  console.log(room);
-  console.log("==========================");
+  //("==========================");
+  //(users);
+  //(room);
+  //("==========================");
 
   // set the room's title
-  console.log(users[0].room, "   1:2     ", room);
+  //(users[0].room, "   1:2     ", room);
   roomTitle.textContent = room + "";
 
   let content = "";

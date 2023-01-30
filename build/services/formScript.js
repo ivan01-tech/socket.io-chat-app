@@ -29,7 +29,7 @@ function initApp() {
     emitLogInfo();
     socket.on("newUser", function ({ pseudo, room }, users) {
         utils.addUser(pseudo, false);
-        console.log(room, " apresC");
+        //(room, " apresC");
         utils.rendersAllusers(users, room);
     });
     // receive a new message and add it
@@ -49,20 +49,20 @@ function initApp() {
             let imagePath;
             let msg = inputMsg.value;
             const Files = document.querySelector("#files");
-            console.log("===================");
-            console.log(Files, msg);
-            console.log("===================");
+            //("===================");
+            //(Files, msg);
+            //("===================");
             if (Files && Files.files && Files.files[0]) {
                 isloading = true;
                 printLoading(isloading);
                 try {
                     imagePath = yield uploadFileClient(Files === null || Files === void 0 ? void 0 : Files.files[0]);
-                    console.log("imagePath =======================");
-                    console.log("imagePath : ", imagePath === null || imagePath === void 0 ? void 0 : imagePath.message);
+                    //("imagePath =======================");
+                    //("imagePath : ", imagePath === null || imagePath === void 0 ? void 0 : imagePath.message);
                     Files.files = null;
                 }
                 catch (err) {
-                    console.log(err);
+                    //(err);
                     return;
                 }
                 finally {

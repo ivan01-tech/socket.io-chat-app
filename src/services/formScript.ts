@@ -31,7 +31,7 @@ function initApp() {
     "newUser",
     function ({ pseudo, room }: SocketData, users: userType[]) {
       utils.addUser(pseudo, false);
-      console.log(room, " apresC");
+      //(room, " apresC");
       utils.rendersAllusers(users, room);
     }
   );
@@ -56,21 +56,21 @@ function initApp() {
     let msg = inputMsg.value;
     const Files = document.querySelector<HTMLInputElement>("#files")!;
 
-    console.log("===================");
-    console.log(Files, msg);
-    console.log("===================");
+    //("===================");
+    //(Files, msg);
+    //("===================");
 
     if (Files && Files.files && Files.files[0]) {
       isloading = true;
       printLoading(isloading);
       try {
         imagePath = await uploadFileClient(Files?.files[0]);
-        console.log("imagePath =======================");
-        console.log("imagePath : ", imagePath?.message);
+        //("imagePath =======================");
+        //("imagePath : ", imagePath?.message);
 
         Files.files = null;
       } catch (err) {
-        console.log(err);
+        //(err);
         return;
       } finally {
         isloading = false;

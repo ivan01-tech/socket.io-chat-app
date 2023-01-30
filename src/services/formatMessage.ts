@@ -1,4 +1,4 @@
-import { getUserById } from "../users/userRooms";
+import { getUserById } from "../users/userRooms.js";
 
 export type messageType = {
   message?: string;
@@ -13,7 +13,7 @@ export function formatMessage(
   pathImage?: string
 ): messageType {
   const date = new Date();
-  console.log("id : ", id);
+  //("id : ", id);
   return {
     message: msg,
     date: `${date.getHours()}:${date.getMinutes()}`,

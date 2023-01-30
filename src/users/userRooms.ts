@@ -25,6 +25,6 @@ export function removeUser(id: string) {
 }
 
 export function getAlluserByRoom(room: string) {
-  console.log(Users);
+  //(Users);
   return Users.filter((user) => user.room == room);
 }
