@@ -2,7 +2,7 @@ export let Users = [];
 export function saveUser(user) {
     Users = [...Users, user];
 }
-export function getUserById({ id }) {
+export function getUserById(id) {
     return Users.find((user) => user.id == id);
 }
 export function getUserByRoomAndName(user) {

@@ -20,7 +20,3 @@ export interface ClientToServerEvents {
   stopTypping: () => void;
   isTypping: () => void;
 }
-
-// export interface InterServerEvents {
-//   ping: () => void;
-// }

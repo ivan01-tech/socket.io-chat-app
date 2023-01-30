@@ -10,7 +10,7 @@ export function saveUser(user: userType): void {
   Users = [...Users, user];
 }
 
-export function getUserById({ id }: { id: string }) {
+export function getUserById(id: string) {
   return Users.find((user) => user.id == id);
 }
 
