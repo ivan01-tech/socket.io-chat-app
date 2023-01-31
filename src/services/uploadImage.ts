@@ -1,16 +1,3 @@
-// var server_urls = {
-//   development: "localhost:3500",
-//   production: "https://chat-app-cucz.onrender.com",
-// };
-
-// var server_url = "production";
-
-// window.ENV = { app_env: "production" };
-// const url = window.ENV.app_env;
-
-// if (url == "development" || url == "production") server_url = server_urls[url];
-// else server_url = server_urls["development"];
-
 async function uploadImageClient(files: File) {
   const formData = new FormData();
   formData.append(files.name, files);
